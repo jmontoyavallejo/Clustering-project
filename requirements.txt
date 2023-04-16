@@ -10,3 +10,4 @@ tensorflow
 matplotlib 
 seaborn
 scikit-learn-extra
+pyclustering

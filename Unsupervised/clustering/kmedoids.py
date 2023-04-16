@@ -72,7 +72,7 @@ class BaseEstimator:
         raise NotImplementedError()
     
 
-class KMeans_unsupervised(BaseEstimator):
+class KMedoids_unsupervised(BaseEstimator):
     """Partition a dataset into K clusters.
     Finds clusters by repeatedly assigning each data point to the cluster with
     the nearest centroid and iterating until the assignments converge (meaning
@@ -105,6 +105,12 @@ class KMeans_unsupervised(BaseEstimator):
         self.centroids = []
         self.init = init
 
+    def fit(self,X):
+        self._setup_input(X)
+
+    def fit_predict(self,X):
+        self.fit(X)
+        return self._predict(X)
     def _initialize_centroids(self, init):
         """Set the initial centroids."""
 
@@ -167,7 +173,7 @@ class KMeans_unsupervised(BaseEstimator):
 
     def _get_centroid(self, cluster):
         """Get values by indices and take the mean."""
-        return [np.mean(np.take(self.X[:, i], cluster)) for i in range(self.n_features)]
+        return [np.median(np.take(self.X[:, i], cluster)) for i in range(self.n_features)]
 
     def _dist_from_centers(self):
         """Calculate distance from centers."""

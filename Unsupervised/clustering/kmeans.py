@@ -105,6 +105,12 @@ class KMeans_unsupervised(BaseEstimator):
         self.centroids = []
         self.init = init
 
+    def fit(self,X):
+        self._setup_input(X)
+
+    def fit_predict(self,X):
+        self.fit(X)
+        return self._predict(X)
     def _initialize_centroids(self, init):
         """Set the initial centroids."""
 
